@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Shppoing_Application_With_MVC.Models.ViewModel.Pages.PageVM>
+
+@{
+    ViewBag.Title = "Pages";
+}
+
+<h2>Pages</h2>
+
+<p>
+    @Html.ActionLink("Add New Page", "AddPage")
+</p>
+@if (!Model.Any())
+{
+    <h1> Sorry!! There are no Pages Available at this time come back later </h1>
+}
+
+else
+{
+<table class="table sorting" id="pages">
+    <tr class="home">
+        <th>
+            Title
+        </th>
+        <th>
+            Slug
+        </th>
+        
+        <th>
+          SlideBar
+        </th>
+        <th></th>
+    </tr>
+
+    @*over here it just go throught the loop and display data*@
+@foreach (var item in Model)
+{
+    /*id_@item.Id" class="@item.Slug" i add these properties because i do not want to sort it */
+    <tr id="id_@item.Id" class="@item.Slug">
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Slug)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.HasSlideBar)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditPage", new { id = item.Id }) |
+            @Html.ActionLink("Detail", "PageDetail", new { id = item.Id }) |
+            @if (item.Slug != "home")
+            {
+            @Html.ActionLink("Delete", "DeletePage", new { id = item.Id }, new { @class = "delete" } )
+            }
+        </td>
+    </tr>
+}
+
+</table>
+}
+
+@section Scripts{
+
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"
+        integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="
+        crossorigin="anonymous">
+
+</script>
+
+<script>
+    /*
+    CONFIRM PAGE DELETION HERE
+    */
+    $(function () {
+        $("a.delete").click(function () {
+            if (!confirm("confirm page deletion")) return false;
+        });
+
+
+
+        // GRAD AND DROP AND CUSTOMIZE PAGES BY ADMIN, I ALSO CREATE A ReorderPages METHOD IN PAGE CONTOLLER
+        $("table#pages tbody").sortable({
+            items: "tr:not(.home)",
+            placeholder: "ui-state-highlight",
+            update: function () {
+                var ids = $("table#pages tbody").sortable("serialize");
+                var url = "/Admin/Pages/ReorderPages";
+
+                $.post(url, ids, function (data) {
+                });
+            }
+        })
+    });
+</script>
+   
+     
+}
