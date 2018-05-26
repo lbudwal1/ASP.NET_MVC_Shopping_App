@@ -14,6 +14,12 @@ namespace Shppoing_Application_With_MVC
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
+            // this one is new which i create to add another my own script
+            // and in layout file i write in the bottom
+            bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+                     "~/Scripts/jquery-{version}.js",
+                     "~/Scripts/bootstrap.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
