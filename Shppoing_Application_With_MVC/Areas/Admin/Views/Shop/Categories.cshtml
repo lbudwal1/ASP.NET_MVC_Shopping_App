@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Shppoing_Application_With_MVC.Models.ViewModel.Shop.CategoryVM>
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+<h2>Categories</h2>
+
+<div class="new-cat">
+    <input type="text" id="newCatname" />
+    <p>
+        <a href="#" id="newCata">Add a new Category</a>
+        <span class="ajax-text">
+<img src="~/Content/img/ajax-loader.gif" /></span>
+
+    </p>
+</div>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">There are No Categories available right Now!!</h2>
+}
+else
+{
+
+<table class="table sorting" id="pages">
+    <tr class="home">
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+           
+            @Html.EditorFor(modelItem => item.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        </td>
+
+        <td>
+            @Html.ActionLink("Delete", "DeleteCategory", new { id = item.Id }, new { @class = "delete" })
+        </td>
+    </tr>
+}
+
+</table>
+}

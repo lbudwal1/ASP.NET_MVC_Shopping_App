@@ -14,5 +14,7 @@ namespace Shppoing_Application_With_MVC.Models.Data
         public DbSet<PageDTO> Pages { get; set; }
 
         public DbSet<SidebarDTO> Slidebar { get; set; }
+
+        public DbSet<CategoryDTO> category { get; set; }
     }
 }
