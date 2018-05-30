@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Shppoing_Application_With_MVC.Models.ViewModel.Pages
 {
@@ -20,6 +21,7 @@ namespace Shppoing_Application_With_MVC.Models.ViewModel.Pages
 
         }
         public int Id { get; set; }
+        [AllowHtml]
         public string Body { get; set; }
     }
 }

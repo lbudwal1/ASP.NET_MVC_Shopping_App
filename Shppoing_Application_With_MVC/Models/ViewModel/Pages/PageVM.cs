@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Shppoing_Application_With_MVC.Models.ViewModel.Pages
 {
@@ -42,6 +43,7 @@ namespace Shppoing_Application_With_MVC.Models.ViewModel.Pages
 
         [Required]
         [StringLength(int.MaxValue, MinimumLength = 3)]
+        [AllowHtml]
         public string Body { get; set; }
         public int Sorting { get; set; }
         public bool HasSlideBar { get; set; }
