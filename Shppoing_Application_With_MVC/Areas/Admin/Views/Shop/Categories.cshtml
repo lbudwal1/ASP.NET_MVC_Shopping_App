@@ -37,7 +37,7 @@ else
         {
             <tr id="id_@item.Id">
                 <td>
-
+                    <div class="ajaxdivtd"></div>
                     @Html.EditorFor(modelItem => item.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                 </td>
 
@@ -49,6 +49,8 @@ else
 
     </table>
 }
+
+                    @* jQuery*@
 
 @section Scripts{
 
@@ -71,7 +73,7 @@ else
                     newCatA.click();
                 }
             });
-            
+
             newCatA.click(function (e) {
                 e.preventDefault();
 
@@ -97,9 +99,10 @@ else
                             });
                         }, 2000);
                         return false;
+
                     } else {
-                        if (!$("table#pages").length){
-                        
+                        if (!$("table#pages").length) {
+
                             location.reload();
 
                         } else {
@@ -125,8 +128,8 @@ else
                 });
             });
 
-            /* 
-             confirm category deletion
+            /*
+             reorder pages
             */
             $("table#pages tbody").sortable({
                 items: "tr:not(.home)",
@@ -140,15 +143,70 @@ else
                 }
             });
 
-            
-            /*
-            reorder pages
-     */
 
-          
-                $("body").on("click", "a.delete", function(){
+            /*
+             confirm category deletion
+            */
+
+            $("body").on("click", "a.delete", function () {
                 if (!confirm("confirm page deletion")) return false;
             });
+
+
+            /*
+            Rename Category
+           */
+            
+            var originalTextBoxValue;
+
+            $("table#pages input.text-box").click(function () {
+                originalTextBoxValue = $(this).val();
+                $(this).attr("readonly", false);
+            });
+
+            $("table#pages input.text-box").keyup(function (e) {
+                if (e.keycode == 13) {
+                    $(this).blur();
+                }
+            });
+
+            $("table#pages input.text-box").blur(function () {
+                var $this = $(this);
+                var ajaxdiv = $this.parent().find(".ajaxdivtd");
+                var newCatName = $this.val();
+                var id = $this.parent().parent().attr("id").substring(3);
+                var url = "/admin/shop/RenameCategory";
+
+                if (newCatName.length < 2) {
+                    alert("Category Name must be at least 2 characters long...");
+                    $this.attr("readonly", true);
+                    return false;
+                }
+
+                $.post(url, { newCatName: newCatName, id: id }, function (data) {
+                    var response = data.trim();
+
+                    if (response == "titletaken") {
+                        $this.val(originalTextBoxValue);
+                        ajaxdiv.html("<span class='alert alert-danger'>That title is already taken!</span>").show();
+
+                    } else {
+                        ajaxdiv.html("<span class='alert alert-success'>The Category Name has been changed</span>").show();
+                    }
+
+                    setTimeout(function () {
+                        ajaxdiv.fadeOut("fast", function () {
+                            ajaxdiv.html("");
+                        });
+                    }, 2000);
+
+                }).done(function () {
+                    $this.attr("readonly", true);
+                });
+
+            });
+
+
         });
     </script>
 

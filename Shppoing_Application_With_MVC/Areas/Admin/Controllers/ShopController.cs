@@ -104,5 +104,50 @@ namespace Shppoing_Application_With_MVC.Areas.Admin.Controllers
             //redirect
             return RedirectToAction("categories");
         }
+
+
+        //Post :Admin/shop/RenameCategory
+        [HttpPost]
+        public string RenameCategory(string newCatName, int id )
+        {
+
+            using (Db db = new Db())
+            {
+                // check category name is unique
+                if (db.category.Any(x => x.Name == newCatName))
+                    return "titletaken";
+
+                // get dto
+                CategoryDTO dto = db.category.Find(id);
+
+                // edit dto
+
+                dto.Name = newCatName;
+                dto.Slug = newCatName.Replace(" ", "-").ToLower();
+
+                // save
+                db.SaveChanges();
+            }
+            //return
+            return "OK!";
+
+        }
+
+        //Get :Admin/shop/AddProduct
+        public ActionResult AddProduct()
+        {
+            //Init Model
+            ProductVM model = new ProductVM();
+
+            // Add select list of categories to model
+            using (Db db = new Db())
+            {
+                model.categories = new SelectList(db.category.ToList(), "Id", "Name");
+            }
+
+                // return view with model
+
+                return View(model);
+        }
     }
 }
