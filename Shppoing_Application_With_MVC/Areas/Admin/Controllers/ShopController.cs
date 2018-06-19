@@ -1,4 +1,5 @@
-﻿using Shppoing_Application_With_MVC.Models.Data;
+﻿using PagedList;
+using Shppoing_Application_With_MVC.Models.Data;
 using Shppoing_Application_With_MVC.Models.ViewModel.Shop;
 using System;
 using System.Collections.Generic;
@@ -290,6 +291,41 @@ namespace Shppoing_Application_With_MVC.Areas.Admin.Controllers
 
             // redirect
             return RedirectToAction("AddProduct");
+        }
+
+        //GET :admin/shop/Products
+        public ActionResult Products(int? page, int? catId)
+        {
+            // serach on google pagedlist and open github the first result on google 
+            //delcare list of productVM
+            List<ProductVM> listOfProductVM;
+
+            //set page number
+            var pageNumber = page ?? 1;
+
+
+            using (Db db = new Db())
+            {
+                //Init the list
+                listOfProductVM = db.product.ToArray()
+                    .Where(x => catId == null || catId == 0 || x.CategoryId == catId)
+                    .Select(x => new ProductVM(x))
+                    .ToList();
+
+                //Populate categories select list
+                ViewBag.category = new SelectList(db.category.ToList(), "Id", "Name");
+
+                // set selected category
+                ViewBag.SelectedCat = catId.ToString();
+               
+            }
+
+            // set pagination
+            var onePageOfProducts = listOfProductVM.ToPagedList(pageNumber, 3);
+            
+            ViewBag.OnePageOfProducts = onePageOfProducts;
+            //return view with list
+            return View(listOfProductVM);
         }
     }
 }
