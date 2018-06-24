@@ -434,57 +434,81 @@ namespace Shppoing_Application_With_MVC.Areas.Admin.Controllers
                     }
                 }
 
-            }
-
-            // set upload directory paths
-            var oirignalDirectory = new DirectoryInfo(string.Format("{0}Images\\Uploads", Server.MapPath(@"\")));
 
 
-            var pathString1 = Path.Combine(oirignalDirectory.ToString(), "Products");
-            var pathString2 = Path.Combine(oirignalDirectory.ToString(), "Products\\" + id.ToString() + "\\Thumbs");
-
-            //delete files from directroies
-            
-            DirectoryInfo di1 = new DirectoryInfo(pathString1);
-            DirectoryInfo di2 = new DirectoryInfo(pathString2);
+                // set upload directory paths
+                var oirignalDirectory = new DirectoryInfo(string.Format("{0}Images\\Uploads", Server.MapPath(@"\")));
 
 
-            // this one is just help to go through all the files in both directories
-            foreach (FileInfo file2 in di1.GetFiles())
-                file2.Delete();
+                var pathString1 = Path.Combine(oirignalDirectory.ToString(), "Products");
+                var pathString2 = Path.Combine(oirignalDirectory.ToString(), "Products\\" + id.ToString() + "\\Thumbs");
 
-            foreach (FileInfo file3 in di2.GetFiles())
-                file3.Delete();
+                //delete files from directroies
 
-            //save image name
+                DirectoryInfo di1 = new DirectoryInfo(pathString1);
+                DirectoryInfo di2 = new DirectoryInfo(pathString2);
 
-            string imageName = file.FileName;
 
-            using (Db db = new Db())
-            {
-                ProductDTO dto = db.product.Find(id);
-                dto.ImageName = imageName;
+                // this one is just help to go through all the files in both directories
+                foreach (FileInfo file2 in di1.GetFiles())
+                    file2.Delete();
 
-                db.SaveChanges();
-            }
+                foreach (FileInfo file3 in di2.GetFiles())
+                    file3.Delete();
+
+                //save image name
+
+                string imageName = file.FileName;
+
+                using (Db db = new Db())
+                {
+                    ProductDTO dto = db.product.Find(id);
+                    dto.ImageName = imageName;
+
+                    db.SaveChanges();
+                }
 
                 //save original and thumb images
 
                 var path = string.Format("{0}\\{1}", pathString1, imageName);
-            var path2 = string.Format("{0}\\{1}", pathString2, imageName);
+                var path2 = string.Format("{0}\\{1}", pathString2, imageName);
 
-         
-            file.SaveAs(path);
 
-         
-            WebImage img = new WebImage(file.InputStream);
-            img.Resize(200, 200);
-            img.Save(path2);
+                file.SaveAs(path);
 
+
+                WebImage img = new WebImage(file.InputStream);
+                img.Resize(200, 200);
+                img.Save(path2);
+            }
             #endregion
 
             //redirect
             return RedirectToAction("EditProduct");
+        }
+
+        //GET: Admin/Shop/DeleteProduct/id
+        public ActionResult DeleteProduct(int id)
+        {
+            //Delete product from DB
+            using (Db db = new Db())
+            {
+                ProductDTO dto = db.product.Find(id);
+                db.product.Remove(dto);
+
+                db.SaveChanges();
+            }
+
+            //Delete product folder
+            var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\Uploads", Server.MapPath(@"\")));
+
+            string pathString = Path.Combine(originalDirectory.ToString(), "Products\\" + id.ToString());
+
+            if (Directory.Exists(pathString))
+                Directory.Delete(pathString, true);
+
+            // redirect
+                return RedirectToAction("Products");
         }
     }
 }
