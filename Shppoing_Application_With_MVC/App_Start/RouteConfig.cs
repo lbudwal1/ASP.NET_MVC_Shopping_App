@@ -12,12 +12,20 @@ namespace Shppoing_Application_With_MVC
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+         
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+            // Shppoing_Application_With_MVC.Controllers this is namespace in PagesController 
+            routes.MapRoute("PagesMenupartical", "pages/PagesMenupartical", new { Controller = "Pages", action = "PagesMenupartical" }, new[] { "Shppoing_Application_With_MVC.Controllers" });
+            routes.MapRoute("Pages", "{page}", new { Controller = "Pages", action = "Index" }, new[] { "Shppoing_Application_With_MVC.Controllers" });
+            routes.MapRoute("Default", "", new { Controller = "Pages", action = "Index" }, new[] { "Shppoing_Application_With_MVC.Controllers" });
+
+            // i comment this one just becuase i create my own contoller in views pages index
+
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            //);
         }
     }
 }

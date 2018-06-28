@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Shppoing_Application_With_MVC.Models.ViewModel.Pages.PageVM>
+
+
+
+@foreach (var item in Model) {
+ <li><a href="/@item.Slug">@item.Title</a></li>
+}
+
+
