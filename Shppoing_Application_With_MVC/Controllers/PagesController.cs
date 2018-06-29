@@ -70,5 +70,23 @@ namespace Shppoing_Application_With_MVC.Controllers
             // Return partical view with list
             return PartialView(pageVMList);
         }
+
+        public ActionResult SidebarPartial()
+        {
+
+            //declare model
+            SidebarVM model;
+
+            //Init Model
+            using (Db db = new Db())
+            {
+                SidebarDTO dto = db.Slidebar.Find(1);
+
+                model = new SidebarVM(dto);
+            }
+
+                //return partical view with model
+                return PartialView(model);
+        }
     }
 }

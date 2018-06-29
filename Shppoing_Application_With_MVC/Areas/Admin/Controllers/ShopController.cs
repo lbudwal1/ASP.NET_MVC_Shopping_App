@@ -523,7 +523,7 @@ namespace Shppoing_Application_With_MVC.Areas.Admin.Controllers
                 {
                     var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\Uploads", Server.MapPath(@"\")));
 
-                    var pathString1 = Path.Combine(originalDirectory.ToString(), "Products");
+                    var pathString1 = Path.Combine(originalDirectory.ToString(), "Products\\" + id.ToString() + "\\");
                     var pathString2 = Path.Combine(originalDirectory.ToString(), "Products\\" + id.ToString() + "\\Thumbs");
 
                     var path = string.Format("{0}\\{1}", pathString1, file.FileName);

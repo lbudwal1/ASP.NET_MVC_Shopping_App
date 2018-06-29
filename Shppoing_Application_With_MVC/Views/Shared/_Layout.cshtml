@@ -20,21 +20,26 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*PagesMenuPartical is method*@
-                    @Html.Action("PagesMenupartical", "Pages");
+                    @*PagesMenuPartical is method and pages is controller*@
+                    @Html.Action("PagesMenupartical", "Pages")
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
         <div class="row">
+
+            <div class="col-xs-12 col-md-2">
+                @Html.Action("CategoryMenuPartical", "Shop")
+            </div>
+
             @if (ViewBag.Slidebar == "Yes")
             {
                 <div class="col-xs-12 col-md-7">
                     @RenderBody()
                 </div>
                 <div class="col-xs-12 col-md-3">
-
+                    @Html.Action("SidebarPartial", "Pages")
                 </div>
 
             }
