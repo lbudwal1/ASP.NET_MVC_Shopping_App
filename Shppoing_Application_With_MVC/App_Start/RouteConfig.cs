@@ -15,12 +15,14 @@ namespace Shppoing_Application_With_MVC
 
 
             // Shppoing_Application_With_MVC.Controllers this is namespace in PagesController 
-            
+            routes.MapRoute("Cart", "Cart/{action}/{id}", new { Controller = "Cart", action = "Index", id = UrlParameter.Optional }, new[] { "Shppoing_Application_With_MVC.Controllers" });
+
+            routes.MapRoute("Shop", "Shop/{action}/{name}", new { Controller = "Shop", action = "Index", name = UrlParameter.Optional }, new[] { "Shppoing_Application_With_MVC.Controllers" });
+
 
             routes.MapRoute("PagesMenupartical", "pages/PagesMenupartical", new { Controller = "Pages", action = "PagesMenupartical" }, new[] { "Shppoing_Application_With_MVC.Controllers" });
             routes.MapRoute("SidebarPartial", "pages/SidebarPartial", new { Controller = "Pages", action = "SidebarPartial" }, new[] { "Shppoing_Application_With_MVC.Controllers" });
 
-            routes.MapRoute("Shop", "Shop/{action}/{name}", new { Controller = "Shop", action = "Index", name = UrlParameter.Optional }, new[] { "Shppoing_Application_With_MVC.Controllers" });
             routes.MapRoute("Pages", "{page}", new { Controller = "Pages", action = "Index" }, new[] { "Shppoing_Application_With_MVC.Controllers" });
             routes.MapRoute("Default", "", new { Controller = "Pages", action = "Index" }, new[] { "Shppoing_Application_With_MVC.Controllers" });
 

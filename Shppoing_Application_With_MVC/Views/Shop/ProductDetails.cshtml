@@ -67,6 +67,34 @@
             FancyBox
             */
             $(".fancybox").fancybox();
+
+
+            /*
+            Add To Cart
+            */
+            $("a.addtocart").click(function (e) {
+                e.preventDefault();
+
+                $("span.loader").addClass("ib");
+
+                var url = "/cart/AddToCartPartial";
+
+                $.get(url, { id: @Model.Id }, function (data){
+                    /*this .ajaxcart came from CartPartical*/
+                    $(".ajaxcart").html(data);
+
+                }).done(function (){
+                    $("span.loader").removeClass("ib");
+                    $("span.ajaxmsg").addClass("ib");
+                    setTimeout(function () {
+                        $("span.ajaxmsg").fadeOut("fast");
+                        $("span.ajaxmsg").removeClass("ib");
+                    }, 1000);
+
+                });
+            });
+
+
         });
 
     </script>
