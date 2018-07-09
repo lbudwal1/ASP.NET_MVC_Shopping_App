@@ -18,5 +18,9 @@ namespace Shppoing_Application_With_MVC.Models.Data
         public DbSet<CategoryDTO> category { get; set; }
 
         public DbSet<ProductDTO> product { get; set; }
+
+        public DbSet<UserDTO> Users { get; set; }
+        public DbSet<RoleDTO> Roles { get; set; }
+        public DbSet<UserRoleDTO> UserRole { get; set; }
     }
 }
