@@ -152,5 +152,55 @@ namespace Shppoing_Application_With_MVC.Controllers
             }
 
         }
+
+        // GET: /Cart/DecrementProduct
+        public ActionResult DecrementProduct(int productId)
+        {
+            //Init Cart
+            List<CartVM> cart = Session["cart"] as List<CartVM>;
+
+
+            using (Db db = new Db())
+            {
+                // Get cartVM from list
+                CartVM model = cart.FirstOrDefault(x => x.ProductId == productId);
+
+                // Decrement qty
+                if (model.Quantity > 1)
+                {
+                    model.Quantity--;
+                }
+
+                else
+                {
+                    model.Quantity = 0;
+                    cart.Remove(model);
+                }
+
+                //Store needed data
+                var result = new { qty = model.Quantity, price = model.Price };
+
+                //Return JSON
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // GET: /Cart/RemoveProduct
+        public void RemoveProduct(int productId)
+        {
+            //Init cart list
+            List<CartVM> cart = Session["cart"] as List<CartVM>;
+
+            using (Db db = new Db())
+            {
+                // Get cartVM from list
+                CartVM model = cart.FirstOrDefault(x => x.ProductId == productId);
+
+                //Remove Model from list
+                cart.Remove(model);
+            }
+
+
+        }
     }
 }
