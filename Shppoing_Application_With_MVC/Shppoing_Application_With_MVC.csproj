@@ -163,6 +163,8 @@
     </Compile>
     <Compile Include="Models\Data\CategoryDTO.cs" />
     <Compile Include="Models\Data\Db.cs" />
+    <Compile Include="Models\Data\OrderDetailsDTO.cs" />
+    <Compile Include="Models\Data\OrderDTO.cs" />
     <Compile Include="Models\Data\PageDTO.cs" />
     <Compile Include="Models\Data\ProductDTO.cs" />
     <Compile Include="Models\Data\RoleDTO.cs" />
@@ -171,6 +173,7 @@
     <Compile Include="Models\Data\UserRoleDTO.cs" />
     <Compile Include="Models\ViewModel\Account\LoginVM.cs" />
     <Compile Include="Models\ViewModel\Account\UserNavPartialVM.cs" />
+    <Compile Include="Models\ViewModel\Account\UserProfileVM.cs" />
     <Compile Include="Models\ViewModel\Account\UserVM.cs" />
     <Compile Include="Models\ViewModel\Cart\CartVM.cs" />
     <Compile Include="Models\ViewModel\Pages\PageVM.cs" />
@@ -654,6 +657,8 @@
     <Content Include="Views\Account\CreateAccount.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\UserNavPartial.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
+    <Content Include="Views\Cart\PaypayPartical.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />

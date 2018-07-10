@@ -19,6 +19,8 @@
         $@Html.DisplayFor(model => model.Price)
         <br />
 
+        @if (Request.IsAuthenticated)
+        {
         <div class="addtocart">
             <a href="#" class="addtocart">Add to Cart</a>
 
@@ -30,6 +32,7 @@
                 Product has been Added to your Cart.
             </span>
         </div>
+        }
     </div>
 
 </div>

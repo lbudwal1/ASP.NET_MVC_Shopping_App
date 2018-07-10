@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@*ViewBag can be useful when you want to transfer temporary data (which is not included in model) 
+    from the controller to the view. The viewBag is a dynamic type property of ControllerBase class which is the base class of all the controllers.*@
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,6 +9,8 @@
     <title>@ViewBag.Title - Shopping Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+   
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-topcancel">
@@ -40,15 +45,40 @@
 
                     }
 
-                    @if (Request.IsAuthenticated)
+                    @*User.IsInRole("User") I CREATE IN FILE GLOBAL.ASAX which helps me to display user profile with name in the top when user login and if admin login then it shows nothing*@
+
+                    @if (Request.IsAuthenticated && User.IsInRole("User"))
                     {
-                        <li>@Html.Action("UserNavPartial", "Account", new { area = "" } )</li>
+                        if (ViewBag.Title == "User Profile")
+                        {
+                            <li class="active">@Html.Action("UserNavPartial", "Account", new { area = "" })</li>
+                        }
+                        else
+                        {
+                            <li>@Html.Action("UserNavPartial", "Account", new { area = "" })</li>
+                        }
+
                     }
                 </ul>
+                 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                 {
+                    <ul class="navbar-collapse collapse navbar-right adminarea">
+                        @*Index is action *@
+                       <li>@Html.ActionLink("Admin Area", "Index", "Dashboard", new { area = "Admin" }, null )</li>
+                    </ul>
+                 }
+                 else
+                 {
+                     if (ViewBag.Title != "Cart details")
+                     {
+                    <ul class="navbar-collapse collapse navbar-right">
+                        @Html.Action("CartPartial", "Cart")
+                    </ul>
+                     }
+                 }
 
-                <ul class="navbar-collapse collapse navbar-right">
-                    @Html.Action("CartPartial", "Cart")
-                </ul>
+
+
             </div>
         </div>
     </div>

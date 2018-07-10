@@ -202,5 +202,36 @@ namespace Shppoing_Application_With_MVC.Controllers
 
 
         }
+
+        public ActionResult PaypayPartical()
+        {
+            List<CartVM> cart = Session["cart"] as List<CartVM>;
+
+            return PartialView(cart);
+        }
+
+        // GET: /Cart/PlaceOrder
+        [HttpPost]
+        public void PlaceOrder()
+        {
+            //Get cart list
+
+            // Get username
+
+            //Declare orderId
+
+            //Init Order DTO
+
+            //Get user id
+
+            // Add to OrderDTO and save
+
+            // Get inserted id
+
+            // Init OrderDetailsDTO
+
+            //Add to OrderDetailsDTO
+
+        }
     }
 }
