@@ -1,7 +1,11 @@
 ﻿using Shppoing_Application_With_MVC.Models.Data;
+using Shppoing_Application_With_MVC.Models.ViewModel.Account;
 using Shppoing_Application_With_MVC.Models.ViewModel.Cart;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web.Mvc;
 
 namespace Shppoing_Application_With_MVC.Controllers
@@ -210,27 +214,89 @@ namespace Shppoing_Application_With_MVC.Controllers
             return PartialView(cart);
         }
 
-        // GET: /Cart/PlaceOrder
+
+        // POST: /Cart/PlaceOrder
         [HttpPost]
         public void PlaceOrder()
         {
-            //Get cart list
+            //Get cart List
+            List<CartVM> cart = Session["cart"] as List<CartVM>;
 
             // Get username
+            string username = User.Identity.Name;
+            
+            
+            //declare orderId
+            int orderId = 0;
+         
+        
 
-            //Declare orderId
 
-            //Init Order DTO
+            using (Db db = new Db())
+            {
 
-            //Get user id
+                //Init Order DTO
+                OrderDTO orderDTO = new OrderDTO();
+            
+                
 
-            // Add to OrderDTO and save
+                //Get User Id
+                var q = db.Users.FirstOrDefault(x => x.Username == username);
+                int userId = q.Id;
 
-            // Get inserted id
 
-            // Init OrderDetailsDTO
 
-            //Add to OrderDetailsDTO
+
+                // Add to OrderDTO and save
+               
+                
+                orderDTO.UserId = userId;
+                
+                orderDTO.CreatedAt = DateTime.Now;
+
+                db.Orders.Add(orderDTO);
+
+                db.SaveChanges();
+
+                // Get Inserted Id
+                orderId = orderDTO.OrderId;
+
+                // Init OrderDetailsDTO
+                OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO();
+
+                //Add to OrderDetailsDTO
+                foreach (var item in cart)
+                {
+                    orderDetailsDTO.OrderId = orderId;
+               
+                    orderDetailsDTO.UserId = userId;
+               
+                    orderDetailsDTO.ProductId = item.ProductId;
+                    orderDetailsDTO.Quantity = item.Quantity;
+
+                    db.OrderDetails.Add(orderDetailsDTO);
+
+                    db.SaveChanges();
+                }
+                
+                
+
+            }
+
+            //Email to Admin
+            //This is a method to send automatic email, i used mailTrap.com for this and solution is provided over their..
+
+            var client = new SmtpClient("smtp.mailtrap.io", 2525)
+            {
+                Credentials = new NetworkCredential("ed84ba7f269e9e", "5b9bab4aa12aa1"),
+                EnableSsl = true
+            };
+
+            //client.Send("from@example.com", "to@example.com", "Hello world", "testbody");
+            client.Send("admin@example.com", "lbudwal6@gmail.com", "New Order", "Your Order Successfully Placed " + orderId);
+
+            //Reset Session
+            Session["cart"] = null;
 
         }
     }

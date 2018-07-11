@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Shppoing_Application_With_MVC.Areas.Admin.Controllers
 {
-   
+    [Authorize(Roles = "Admin")]
     /* x =>  is a lynda expretion where x is parameter and value after => is what return
      for eg = a function(x)
      return x.id != id;
@@ -22,7 +22,7 @@ namespace Shppoing_Application_With_MVC.Areas.Admin.Controllers
             // Declare list of PageVM
             List<PageVM> pageList;
 
-            // In it the list
+            // Init the list
             using (Db db = new Db())
             {
                 pageList = db.Pages.ToArray().OrderBy(x => x.Sorting).Select(x => new PageVM(x)).ToList();
@@ -111,7 +111,7 @@ namespace Shppoing_Application_With_MVC.Areas.Admin.Controllers
             using (Db db = new Db())
             {
 
-                //get the page and   id is primary key 
+                //get the page and  id is primary key 
                 PageDTO dto = db.Pages.Find(id);
 
             
@@ -275,8 +275,9 @@ namespace Shppoing_Application_With_MVC.Areas.Admin.Controllers
             {
 
 
-                // get the dto i put 1 beacuse i know it always be 1
+                // get the dto and I put 1 beacuse i know it always be 1
                 SidebarDTO dto = db.Slidebar.Find(1);
+
                 // Init model
                 model = new SidebarVM(dto);
             }

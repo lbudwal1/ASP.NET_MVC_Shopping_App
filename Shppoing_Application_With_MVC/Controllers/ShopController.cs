@@ -91,5 +91,7 @@ namespace Shppoing_Application_With_MVC.Controllers
             //Return view with model
             return View("ProductDetails", model);
         }
+
+
     }
 }

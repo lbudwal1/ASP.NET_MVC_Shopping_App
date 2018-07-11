@@ -154,6 +154,7 @@
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\PagesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModels\Shop\OrdersForAdminVM.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Models\Data\UserDTO.cs" />
     <Compile Include="Models\Data\UserRoleDTO.cs" />
     <Compile Include="Models\ViewModel\Account\LoginVM.cs" />
+    <Compile Include="Models\ViewModel\Account\OrdersForUserVM.cs" />
     <Compile Include="Models\ViewModel\Account\UserNavPartialVM.cs" />
     <Compile Include="Models\ViewModel\Account\UserProfileVM.cs" />
     <Compile Include="Models\ViewModel\Account\UserVM.cs" />
@@ -179,6 +181,7 @@
     <Compile Include="Models\ViewModel\Pages\PageVM.cs" />
     <Compile Include="Models\ViewModel\Pages\SidebarVM.cs" />
     <Compile Include="Models\ViewModel\Shop\CategoryVM.cs" />
+    <Compile Include="Models\ViewModel\Shop\OrderVM.cs" />
     <Compile Include="Models\ViewModel\Shop\ProductVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -256,6 +259,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Areas\Admin\Views\Shop\Orders.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ckeditor\ckeditor_source.js" />
     <Content Include="Scripts\ckeditor\config.js" />
@@ -659,9 +663,9 @@
     <Content Include="Views\Account\UserNavPartial.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Cart\PaypayPartical.cshtml" />
+    <Content Include="Views\Account\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="fileman\" />
   </ItemGroup>
   <ItemGroup>
