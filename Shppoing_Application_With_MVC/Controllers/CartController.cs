@@ -228,8 +228,10 @@ namespace Shppoing_Application_With_MVC.Controllers
             
             //declare orderId
             int orderId = 0;
-         
-        
+            string fName, lName;
+            
+
+
 
 
             using (Db db = new Db())
@@ -243,6 +245,8 @@ namespace Shppoing_Application_With_MVC.Controllers
                 //Get User Id
                 var q = db.Users.FirstOrDefault(x => x.Username == username);
                 int userId = q.Id;
+                fName = q.FirstName;
+                lName = q.LastName;
 
 
 
@@ -251,6 +255,7 @@ namespace Shppoing_Application_With_MVC.Controllers
                
                 
                 orderDTO.UserId = userId;
+                
                 
                 orderDTO.CreatedAt = DateTime.Now;
 
@@ -270,7 +275,7 @@ namespace Shppoing_Application_With_MVC.Controllers
                     orderDetailsDTO.OrderId = orderId;
                
                     orderDetailsDTO.UserId = userId;
-               
+                   
                     orderDetailsDTO.ProductId = item.ProductId;
                     orderDetailsDTO.Quantity = item.Quantity;
 
@@ -293,7 +298,7 @@ namespace Shppoing_Application_With_MVC.Controllers
             };
 
             //client.Send("from@example.com", "to@example.com", "Hello world", "testbody");
-            client.Send("admin@example.com", "lbudwal6@gmail.com", "New Order", "Your Order Successfully Placed " + orderId);
+            client.Send("admin@example.com", "lbudwal6@gmail.com", "New Order", "Hello " + fName + lName + " Your Order Successfully Placed and Your OrderID is: " + orderId);
 
             //Reset Session
             Session["cart"] = null;

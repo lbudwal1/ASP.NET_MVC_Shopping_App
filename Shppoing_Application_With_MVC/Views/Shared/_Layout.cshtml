@@ -45,7 +45,8 @@
 
                     }
 
-                    @*User.IsInRole("User") I CREATE IN FILE GLOBAL.ASAX which helps me to display user profile with name in the top when user login and if admin login then it shows nothing*@
+                    @*User.IsInRole("User") I CREATE IN FILE GLOBAL.ASAX which helps me to display user profile with name in the
+                        top when user login and if admin login then it shows nothing*@
 
                     @if (Request.IsAuthenticated && User.IsInRole("User"))
                     {
@@ -85,11 +86,7 @@
     <div class="container body-content">
         <div class="row">
 
-            <div class="ajaxbg">
-                <span>
-                    <img src="~/Content/img/ajax-loader.gif" />
-                </span>
-            </div>
+           
 
             @if (ViewBag.Title != "Create Account" && ViewBag.Title != "Login" && ViewBag.Title != "User Profile" && ViewBag.Title != "Orders" &&
                 ViewBag.Title != "About Me" && ViewBag.Title != "Contact Me")
@@ -136,7 +133,7 @@
         </div>
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Created By Likhit Budwal</p>
         </footer>
     </div>
 
